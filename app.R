@@ -21,7 +21,6 @@ source("R/dropdown-module.R")
 source("R/leaflet-helper-functions.R")
 
 options(shiny.sanitize.errors = TRUE,
-        
         semantic.themes = TRUE,
         spinner.color = "#0275D8", 
         spinner.color.background="#ffffff", 
@@ -60,8 +59,11 @@ ui<- shinyUI(semanticPage(
   )
 )
 
+#############################################################################
+
 ###Server####
 server<- function(input, output, session){
+  #Load Data
   csvData<-as.data.frame(read_csv("ships.csv"))
   
   ##Reactives
@@ -88,14 +90,14 @@ server<- function(input, output, session){
   })
   
   #Data from all vessels with current ship type
-  selectedShipTypeData <- reactive({
+  selectedShipTypeData <- eventReactive(input$ShipTypeInput,{
     allData() %>%
       filter(ship_type == input$ShipTypeInput)
   })
   
   ##VESSEL
   #List of vessels names with current ship type
-  vessels <- reactive({
+  vessels <- eventReactive(input$ShipTypeInput,{
     if(input$ShipTypeInput == "All"){
       uniqueShips()
     }
@@ -156,9 +158,9 @@ server<- function(input, output, session){
                              "Tanker", "Tug", "Unspecified")
   #Map
   output$map <- renderLeaflet({
+    validate(need(input$VesselInput, "Loading.."))
     #Map of all ships
     if(input$VesselInput == "All"){
-      
       dat <- data.frame()
       
       if(input$ShipTypeInput == "All"){
@@ -185,6 +187,7 @@ server<- function(input, output, session){
     }
     #Map of a selected ship
     else{
+      validate(need(shipData(), "Loading"))
       startDescription <- map(paste("<p><b>Longest Traveled Start </b><br/> Timestamp: ",  maxShipDistanceTimes()[1,]$DATETIME, 
                                     "<br /> LONG: ", maxShipDistanceTimes()[1,]$LON,
                                     "<br /> LAT: ", maxShipDistanceTimes()[1,]$LAT, "</p>"), HTML)
