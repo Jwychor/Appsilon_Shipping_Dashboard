@@ -5,9 +5,9 @@ account: jwychor
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3290778
-bundleId: 3897079
+bundleId: 3897210
 url: https://jwychor.shinyapps.io/Appsilon_Shipping_Dashboard/
-when: 1606169940.24348
+when: 1606172100.334
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: tests/testthat.R|tests/testthat/test-leaflet-helper-functions.R|tests/testthat/test-server.R
