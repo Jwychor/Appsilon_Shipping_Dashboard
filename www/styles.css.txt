@@ -1,0 +1,10 @@
+body {
+	background-color: #C9FFF9 !important;
+}
+
+.segment{
+	background-color: black !important;
+	color: white !important;
+	padding-top: 0 !important;
+	min-height: 40px !important;
+}
