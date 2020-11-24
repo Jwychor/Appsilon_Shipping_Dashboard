@@ -26,15 +26,27 @@ options(shiny.sanitize.errors = TRUE,
         spinner.color.background="#ffffff", 
         spinner.size=2)
 
+####Data Loading####
+csvData <- data.frame()
+
+##Load data from google drive
+
+#library(googledrive)
+#temp <- tempfile(fileext = ".zip")
+#dl <- drive_download(
+#  as_id("1IeaDpJNqfgUZzGdQmR6cz2H3EQ3_QfCV"), path = temp, overwrite = TRUE)
+#out <- unzip(temp, exdir = tempdir())
+#csvData <- as.data.frame(read_csv(out))
+
 ####Application####
 ###UI####
-ui<- shinyUI(semanticPage(
+ui <- shinyUI(semanticPage(
   title = "Shipping Dashboard",
   theme = "lumen",
+  
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
   ),
-
   #Map and datatable
   segment(class = "black",
           h1("Shipping Dashboard"),
@@ -64,7 +76,9 @@ ui<- shinyUI(semanticPage(
 ###Server####
 server<- function(input, output, session){
   #Load Data
-  csvData<-as.data.frame(read_csv("ships.csv"))
+  if(nrow(csvData) == 0){
+    csvData<-as.data.frame(read_csv("ships.csv"))
+  }
   
   ##Reactives
   allData <- reactive({csvData})
