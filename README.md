@@ -1,4 +1,4 @@
-# Appsilon_Shipping_Dashboard
+# Appsilon Shipping Dashboard
 A Shiny application built to provide dashboarding functionalities for shipping data [(source)](https://drive.google.com/file/d/1IeaDpJNqfgUZzGdQmR6cz2H3EQ3_QfCV/view).
 
 ![Alt Text](https://github.com/Jwychor/Appsilon_Shipping_Dashboard/blob/main/Images/DemoGif.gif)
